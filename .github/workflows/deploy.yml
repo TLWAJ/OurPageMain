@@ -24,9 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
-          token: ${{ secrets.QUARTZ_DEPLOY_TOKEN }}
+
+      - name: Checkout submodule with token
+        run: |
+          git config --global url."https://${{ secrets.QUARTZ_DEPLOY_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          git submodule update --init --recursive --remote
 
       - name: Update submodule to latest
         run: |
