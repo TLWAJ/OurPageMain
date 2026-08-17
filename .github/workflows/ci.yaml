@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - v4
+  repository_dispatch:
+    types:
+      - notes-updated
   workflow_dispatch:
 
 jobs:
@@ -21,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
+          submodules: recursive
           fetch-depth: 0
 
       - name: Setup Node
